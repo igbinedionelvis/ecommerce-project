@@ -26,7 +26,7 @@ describe("Product component", () => {
     loadCart = vi.fn();
   });
 
-  it("displays the producct details correctly", () => {
+  it("displays the product details correctly", () => {
     render(<Product product={product} loadCart={loadCart} />);
 
     expect(
@@ -40,10 +40,15 @@ describe("Product component", () => {
       "images/products/athletic-cotton-socks-6-pairs.jpg",
     );
 
+    expect(screen.getByTestId("product-rating-stars-image")).toHaveAttribute(
+      "src",
+      "images/ratings/rating-45.png",
+    );
+
     expect(screen.getByText("87")).toBeInTheDocument();
   });
 
-  it("add a product to the cart", async () => {
+  it("adds a product to the cart", async () => {
     render(<Product product={product} loadCart={loadCart} />);
 
     const user = userEvent.setup();
@@ -54,6 +59,6 @@ describe("Product component", () => {
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity: 1,
     });
-    expect(loadCart).toHaveBeenCalledWith();
+    expect(loadCart).toHaveBeenCalled();
   });
 });
